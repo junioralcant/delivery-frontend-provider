@@ -51,9 +51,9 @@ export default function Pedidos({ match }) {
         const response = await api.get(`/pedidos`);
         const { docs, ...pedidoResto } = response.data;
 
+        audio.play();
         setPedidos(docs);
         setPedidosInfo(pedidoResto);
-        audio.play();
       }
 
       load();
@@ -258,7 +258,9 @@ export default function Pedidos({ match }) {
                         <div key={produto._id} className="produto-container">
                           <div className="header-produto">
                             <strong>{produto.produtoId.nome}</strong>{" "}
-                            <strong>R$ {produto.produtoId.preco}</strong>
+                            <strong>
+                              {formatPrice(produto.produtoId.preco)}
+                            </strong>
                           </div>
                           <div className="descricao-produto">
                             <small>{produto.produtoId.descricao}</small>
@@ -266,7 +268,7 @@ export default function Pedidos({ match }) {
                           <div className="footer-produto">
                             <div>
                               <small>Valor: </small>{" "}
-                              <strong>R$ {produto.valor}</strong>
+                              <strong>{formatPrice(produto.valor)}</strong>
                             </div>
                             <div>
                               <small>QTD: </small>{" "}
@@ -284,7 +286,7 @@ export default function Pedidos({ match }) {
                     <strong>Total: </strong>{" "}
                     <strong style={{ marginLeft: 4 }}>
                       {" "}
-                      R${pedido.valorTotal}
+                      {formatPrice(pedido.valorTotal)}
                     </strong>
                   </div>
                 </li>
