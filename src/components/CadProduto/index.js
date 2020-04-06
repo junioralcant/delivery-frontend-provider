@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input, Form } from "unform";
+import { Input, Form, Select as SelectUnform } from "unform";
 import { IoMdTrash, IoMdCreate } from "react-icons/io";
 import { Link } from "react-router-dom";
 
@@ -13,6 +13,7 @@ import {
   Content,
   Pesquisa
 } from "./styles";
+
 import Select from "react-select";
 import api from "../../services/api";
 import Sidebar from "../Sidebar/index";
@@ -141,6 +142,17 @@ export default function CadProduto({ history, match }) {
     singleValue: styles => ({ ...styles, color: "#fff" })
   };
 
+  const optionsDis = [
+    {
+      id: true,
+      title: "Sim"
+    },
+    {
+      id: false,
+      title: "Não"
+    }
+  ];
+
   return (
     <Container>
       <Sidebar />
@@ -154,6 +166,13 @@ export default function CadProduto({ history, match }) {
             <Input name="nome" label="Nome" />
             <Input name="preco" label="Preço" />
             <Input name="descricao" label="Descrição" />
+            <SelectUnform
+              className="form-control"
+              value={data.disponivel}
+              name="disponivel"
+              label="Disponível"
+              options={optionsDis}
+            />
             <span>Categoria</span>
             <Select
               options={categorias}
@@ -191,8 +210,46 @@ export default function CadProduto({ history, match }) {
         </Pesquisa>
         <List>
           {produtos.map(produto => {
-            return (
+            return produto.disponivel === true ? (
               <PedidosList key={produto._id}>
+                <header>
+                  <button
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          `Deseja realmente deletar o produto ${produto.nome}?`
+                        )
+                      )
+                        destroy(produto._id);
+                    }}
+                  >
+                    <IoMdTrash />
+                  </button>
+                  <Link
+                    to={`/produto/edit/${produto._id}`}
+                    style={{ color: "#fff" }}
+                  >
+                    <IoMdCreate />
+                  </Link>
+                  <strong> {produto.nome}</strong>
+                </header>
+                <ul>
+                  <li>
+                    Quantidade estoque: <small> {produto.quantidade}</small>
+                  </li>
+                  <li>
+                    Categoria: <small> {produto.categoria.nome}</small>
+                  </li>
+                  <li>
+                    Valor unidade: <small> {formatPrice(produto.preco)}</small>
+                  </li>
+                  <li>
+                    Descrição: <small> {produto.descricao}</small>
+                  </li>
+                </ul>
+              </PedidosList>
+            ) : (
+              <PedidosList naoDisponivel key={produto._id}>
                 <header>
                   <button
                     onClick={() => {

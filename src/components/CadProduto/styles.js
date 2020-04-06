@@ -152,7 +152,7 @@ export const PedidosList = styled.div`
   flex-direction: column;
 
   header {
-    background: #7289da;
+    background: ${props => (props.naoDisponivel ? "#ff5050" : "#7289da")};
     color: #fff;
     padding: 30px;
     display: flex;
