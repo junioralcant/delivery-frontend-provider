@@ -185,12 +185,12 @@ export default function Pedidos({ match }) {
                           </div>
                           <div className="footer-produto">
                             <div>
-                              <small>Valor: </small>{" "}
-                              <strong>{formatPrice(produto.valor)}</strong>
-                            </div>
-                            <div>
                               <small>QTD: </small>{" "}
                               <strong>{produto.quantidade}</strong>
+                            </div>
+                            <div>
+                              <small>Valor: </small>{" "}
+                              <strong>{formatPrice(produto.valor)}</strong>
                             </div>
                           </div>
                         </div>
@@ -267,12 +267,12 @@ export default function Pedidos({ match }) {
                           </div>
                           <div className="footer-produto">
                             <div>
-                              <small>Valor: </small>{" "}
-                              <strong>{formatPrice(produto.valor)}</strong>
-                            </div>
-                            <div>
                               <small>QTD: </small>{" "}
                               <strong>{produto.quantidade}</strong>
+                            </div>
+                            <div>
+                              <small>Valor: </small>{" "}
+                              <strong>{formatPrice(produto.valor)}</strong>
                             </div>
                           </div>
                         </div>
