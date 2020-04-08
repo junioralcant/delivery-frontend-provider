@@ -173,6 +173,7 @@ export default function Pedidos() {
                 </button>
                 <strong>{pedido.nomeCliente}</strong>
                 <small>{dataPedido}</small>
+                <small>{pedido.cliente.telefone}</small>
               </header>
               <ul>
                 <li>

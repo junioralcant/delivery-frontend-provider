@@ -107,6 +107,7 @@ export default function PedidosParaEntrega({ match }) {
                 </button>
                 <strong>{pedido.nomeCliente}</strong>
                 <small>{dataPedido}</small>
+                <small>{pedido.cliente.telefone}</small>
               </header>
               <ul>
                 <li>
