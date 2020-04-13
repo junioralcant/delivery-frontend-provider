@@ -27,7 +27,13 @@ export default function CadProduto({ history, match }) {
 
   async function handlerSubmit(data) {
     if (!match.params.id) {
-      if (!data.nome || !data.descricao || !data.preco) {
+      if (
+        !data.nome ||
+        !data.descricao ||
+        !data.preco ||
+        !data.disponivel ||
+        categoriaId
+      ) {
         setError("Preencha todos os campos!");
       } else {
         try {
