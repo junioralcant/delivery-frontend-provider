@@ -26,6 +26,7 @@ export default function Pedidos() {
   const [numberPage, setNumberPage] = useState(1);
   const [dataMin, setDataMin] = useState("");
   const [dataMax, setDataMax] = useState("");
+  const [total, setTotal] = useState(false);
 
   useEffect(() => {
     async function loadPedidos(page = numberPage) {
@@ -41,7 +42,9 @@ export default function Pedidos() {
 
   async function filterNome(e) {
     if (e.target.value !== "") {
-      const response = await api.get(`/pedidos?nome=${e.target.value}`);
+      const response = await api.get(
+        `/pedidos?nome=${e.target.value}&limit_page=${pedidosInfo.total}`
+      );
       setPedidos(response.data.docs);
     } else {
       const response = await api.get("/pedidos");
@@ -52,16 +55,18 @@ export default function Pedidos() {
   async function filterData() {
     if (dataMin !== "" || dataMax !== "") {
       const response = await api.get(
-        `/pedidos?data_min=${dataMin}&data_max=${dataMax}`
+        `/pedidos?data_min=${dataMin}&data_max=${dataMax}&limit_page=${pedidosInfo.total}`
       );
       const { docs, ...pedidoResto } = response.data;
       setPedidos(docs);
       setPedidosInfo(pedidoResto);
+      setTotal(true);
     } else {
       const response = await api.get("/pedidos");
       const { docs, ...pedidoResto } = response.data;
       setPedidos(docs);
       setPedidosInfo(pedidoResto);
+      setTotal(false);
     }
   }
   function filterDataMin(e) {
@@ -134,17 +139,19 @@ export default function Pedidos() {
         <Dados style={{ background: "none" }}>
           <span></span>
         </Dados>
-        <Dados>
-          <div>
-            <strong>
-              Quantidade de Pedidos: <small>{pedidosInfo.total}</small>
-            </strong>
-            <strong className="total">
-              Valor total:{" "}
-              <small className="total">{formatPrice(valorTotal)}</small>
-            </strong>
-          </div>
-        </Dados>
+        {total && (
+          <Dados>
+            <div>
+              <strong>
+                Quantidade de Pedidos: <small>{pedidosInfo.total}</small>
+              </strong>
+              <strong className="total">
+                Valor total:{" "}
+                <small className="total">{formatPrice(valorTotal)}</small>
+              </strong>
+            </div>
+          </Dados>
+        )}
       </Pesquisa>
 
       <ContainerPedidos>
@@ -173,7 +180,9 @@ export default function Pedidos() {
                 </button>
                 <strong>{pedido.nomeCliente}</strong>
                 <small>{dataPedido}</small>
-                <small>{pedido.cliente.telefone}</small>
+                <small>
+                  {!pedido.cliente ? null : pedido.cliente.telefone}
+                </small>
               </header>
               <ul>
                 <li>
