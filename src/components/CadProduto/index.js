@@ -251,7 +251,11 @@ export default function CadProduto({ history, match }) {
                     Quantidade estoque: <small> {produto.quantidade}</small>
                   </li>
                   <li>
-                    Categoria: <small> {produto.categoria.nome}</small>
+                    Categoria:{" "}
+                    <small>
+                      {" "}
+                      {produto.categoria ? produto.categoria.nome : null}
+                    </small>
                   </li>
                   <li>
                     Valor unidade: <small> {formatPrice(produto.preco)}</small>
