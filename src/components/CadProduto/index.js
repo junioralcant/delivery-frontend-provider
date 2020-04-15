@@ -15,6 +15,7 @@ import {
 } from "./styles";
 
 import Select from "react-select";
+
 import api from "../../services/api";
 import Sidebar from "../Sidebar/index";
 
@@ -32,7 +33,7 @@ export default function CadProduto({ history, match }) {
         !data.descricao ||
         !data.preco ||
         !data.disponivel ||
-        categoriaId
+        !categoriaId
       ) {
         setError("Preencha todos os campos!");
       } else {
@@ -61,6 +62,12 @@ export default function CadProduto({ history, match }) {
       }
     }
   }
+
+  console.log(data);
+  console.log(data.descricao);
+  console.log(data.preco);
+  console.log(data.disponivel);
+  console.log(categoriaId);
 
   useEffect(() => {
     async function loadProdutos() {
