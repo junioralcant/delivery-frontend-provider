@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
+import Loading from "../../components/Loader";
+
 import api from "../../services/api";
 import { login } from "../../services/auth";
 import { Container, Form } from "./styles";
@@ -9,23 +11,26 @@ class SignIn extends Component {
   state = {
     email: "",
     password: "",
-    error: ""
+    error: "",
+    loading: false,
   };
 
-  handleSignIn = async e => {
+  handleSignIn = async (e) => {
     e.preventDefault();
     const { email, password } = this.state;
     if (!email || !password) {
       this.setState({ error: "Preencha e-mail e senha para continuar!" });
     } else {
       try {
+        this.setState({ loading: true });
         const response = await api.post("/sessions", { email, password });
         login(response.data.token);
+        this.setState({ loading: false });
         this.props.history.push("/");
       } catch (err) {
         this.setState({
           error:
-            "Houve um problema com o login, verifique suas credenciais. T.T"
+            "Houve um problema com o login, verifique suas credenciais. T.T",
         });
       }
     }
@@ -41,14 +46,21 @@ class SignIn extends Component {
             <input
               type="email"
               placeholder="Endereço de e-mail"
-              onChange={e => this.setState({ email: e.target.value })}
+              onChange={(e) => this.setState({ email: e.target.value })}
             />
             <input
               type="password"
               placeholder="Senha"
-              onChange={e => this.setState({ password: e.target.value })}
+              onChange={(e) => this.setState({ password: e.target.value })}
             />
-            <button type="submit">Entrar</button>
+
+            {this.state.loading ? (
+              <div>
+                <Loading />
+              </div>
+            ) : (
+              <button type="submit">Entrar</button>
+            )}
           </Form>
         </div>
       </Container>

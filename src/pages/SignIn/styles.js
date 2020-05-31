@@ -43,6 +43,13 @@ export const Form = styled.form`
     }
   }
 
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
   button {
     margin: 20px 0;
     height: 44px;
