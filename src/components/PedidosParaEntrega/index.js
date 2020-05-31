@@ -16,7 +16,7 @@ import {
   ContainerPedidos,
   PedidosList,
   Pesquisa,
-  Footer
+  Footer,
 } from "./styles";
 
 import Soud from "../../audios/Soud.mp3";
@@ -39,7 +39,7 @@ export default function PedidosParaEntrega({ match }) {
   useEffect(() => {
     const socket = io(process.env.REACT_APP_API_URL);
 
-    socket.on("createPedido", message => {
+    socket.on("createPedido", (message) => {
       async function load() {
         const response = await api.get(`/pedidosnaoentregues`);
 
@@ -80,16 +80,16 @@ export default function PedidosParaEntrega({ match }) {
         />
       </Pesquisa>
       <ContainerPedidos>
-        {pedidos.map(pedido => {
+        {pedidos.map((pedido) => {
           const dataPedido = format(pedido.createdAt, "DD-MM-YYYY H:mm", {
-            locale: pt
+            locale: pt,
           });
 
           return (
             <PedidosList key={pedido._id}>
               <header>
                 <button
-                  onClick={e => {
+                  onClick={(e) => {
                     if (
                       window.confirm(
                         `Deseja realmente entregar o pedido do(a) cliente ${pedido.nomeCliente}?`
@@ -114,7 +114,7 @@ export default function PedidosParaEntrega({ match }) {
                   Produtos
                   <ul>
                     <Produto>
-                      {pedido.produto.map(produto => (
+                      {pedido.produto.map((produto) => (
                         <div key={produto._id} className="produto-container">
                           <div className="header-produto">
                             <strong>{produto.produtoId.nome}</strong>{" "}
@@ -144,7 +144,7 @@ export default function PedidosParaEntrega({ match }) {
                 <li>
                   <div className="total">
                     <strong>Total: </strong>{" "}
-                    <strong style={{ marginLeft: 4 }}>
+                    <strong className="value" style={{ marginLeft: 4 }}>
                       {" "}
                       {formatPrice(pedido.valorTotal)}
                     </strong>
@@ -152,8 +152,18 @@ export default function PedidosParaEntrega({ match }) {
                 </li>
 
                 <li>
+                  <div className="total">
+                    <strong>Troco Para: </strong>{" "}
+                    <strong className="troco" style={{ marginLeft: 4 }}>
+                      {" "}
+                      {formatPrice(!pedido.trocoPara ? 0 : pedido.trocoPara)}
+                    </strong>
+                  </div>
+                </li>
+
+                <li>
                   Endereço
-                  {pedido.enderecoEntrega.map(end => {
+                  {pedido.enderecoEntrega.map((end) => {
                     return (
                       <ul key={end._id}>
                         <li>

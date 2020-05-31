@@ -160,6 +160,18 @@ export const PedidosList = styled.div`
     div.total {
       display: flex;
       justify-content: flex-end;
+
+      strong.value {
+        background: #63f5b0;
+        padding: 3px;
+        border-radius: 5px;
+      }
+
+      strong.troco {
+        background: #ede024;
+        padding: 3px;
+        border-radius: 5px;
+      }
     }
   }
 `;

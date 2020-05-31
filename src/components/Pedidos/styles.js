@@ -94,15 +94,15 @@ export const PedidosList = styled.div`
   flex-direction: column;
 
   header {
-    background: ${props => (props.naoEntregue ? "#63f5b0" : "#7289da")};
-    color: ${props => (props.naoEntregue ? "#000" : "#fff")};
+    background: ${(props) => (props.naoEntregue ? "#63f5b0" : "#7289da")};
+    color: ${(props) => (props.naoEntregue ? "#000" : "#fff")};
     padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     button {
-      color: ${props => (props.naoEntregue ? "#000" : "#fff")};
+      color: ${(props) => (props.naoEntregue ? "#000" : "#fff")};
       background: none;
       border: none;
       font-size: 16px;
@@ -118,7 +118,7 @@ export const PedidosList = styled.div`
 
     small {
       font-size: 14px;
-      color: ${props => (props.naoEntregue ? "#000" : "#fff")};
+      color: ${(props) => (props.naoEntregue ? "#000" : "#fff")};
     }
   }
 
@@ -160,6 +160,18 @@ export const PedidosList = styled.div`
     div.total {
       display: flex;
       justify-content: flex-end;
+
+      strong.value {
+        background: #63f5b0;
+        padding: 3px;
+        border-radius: 5px;
+      }
+
+      strong.troco {
+        background: #ede024;
+        padding: 3px;
+        border-radius: 5px;
+      }
     }
   }
 `;
