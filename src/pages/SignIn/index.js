@@ -41,7 +41,7 @@ class SignIn extends Component {
       <Container>
         <div className="login">
           <Form onSubmit={this.handleSignIn}>
-            <h2 style={{ textAlign: "center" }}>App pedido</h2>
+            <h2 style={{ textAlign: "center" }}>Pastel Delivery</h2>
             {this.state.error && <p>{this.state.error}</p>}
             <input
               type="email"
