@@ -94,6 +94,9 @@ export default function Pedidos({ match }) {
 
   return (
     <Container>
+      <header>
+        <h1>Todos os Pedidos</h1>
+      </header>
       <Pesquisa>
         <input
           type="text"

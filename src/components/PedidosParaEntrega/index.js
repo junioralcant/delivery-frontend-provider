@@ -71,6 +71,9 @@ export default function PedidosParaEntrega({ match }) {
 
   return (
     <Container>
+      <header>
+        <h1>Pedidos para entregua</h1>
+      </header>
       <Pesquisa>
         <input
           type="text"

@@ -7,6 +7,13 @@ export const Container = styled.div`
   align-items: center;
   color: #000;
   margin-top: 50px;
+
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
 `;
 
 export const Pesquisa = styled.div`
