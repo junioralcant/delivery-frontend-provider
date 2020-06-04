@@ -17,6 +17,10 @@ export default function Sidebar() {
           <br></br>
 
           <li>
+            <a href="/loja">Loja</a>
+          </li>
+
+          <li>
             <a href="/categoria">Cad Categoria</a>
           </li>
 

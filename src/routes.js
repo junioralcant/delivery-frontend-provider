@@ -8,11 +8,12 @@ import Financeiro from "./pages/Financeiro";
 import Produto from "./components/CadProduto";
 import PedidoParaEntrega from "./pages/PedidoParaEntrega";
 import Categoria from "./components/CadCategoria";
+import Loja from "./components/Loja";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
+    render={(props) =>
       isAuthenticated() ? (
         <Component {...props} />
       ) : (
@@ -36,6 +37,8 @@ const Routes = () => (
       <PrivateRoute path="/pedidosparaentrega" component={PedidoParaEntrega} />
       <PrivateRoute exact path="/categoria" component={Categoria} />
       <PrivateRoute path="/categoria/edit/:id" component={Categoria} />
+      <PrivateRoute exact path="/loja" component={Loja} />
+      <PrivateRoute path="/loja/edit/:id" component={Loja} />
     </Switch>
   </BrowserRouter>
 );
