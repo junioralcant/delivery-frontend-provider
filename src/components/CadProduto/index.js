@@ -11,7 +11,7 @@ import {
   List,
   PedidosList,
   Content,
-  Pesquisa
+  Pesquisa,
 } from "./styles";
 
 import Select from "react-select";
@@ -63,12 +63,6 @@ export default function CadProduto({ history, match }) {
     }
   }
 
-  console.log(data);
-  console.log(data.descricao);
-  console.log(data.preco);
-  console.log(data.disponivel);
-  console.log(categoriaId);
-
   useEffect(() => {
     async function loadProdutos() {
       const response = await api.get("/produtos");
@@ -109,7 +103,7 @@ export default function CadProduto({ history, match }) {
 
   const optionsExistentsCategoria = data.categoria != null && {
     id: data.categoria._id,
-    name: data.categoria.nome
+    name: data.categoria.nome,
   };
 
   useEffect(() => {
@@ -141,29 +135,29 @@ export default function CadProduto({ history, match }) {
   }
   // estilização do Select
   const colourStyle = {
-    control: styles => ({
+    control: (styles) => ({
       ...styles,
       backgroundColor: "rgba(0, 0, 0, 0.1)",
-      color: "white"
+      color: "white",
     }),
-    option: styles => ({
+    option: (styles) => ({
       ...styles,
       backgroundColor: "rgba(0, 0, 0, 0.8)",
-      color: "#fff"
+      color: "#fff",
     }),
-    input: styles => ({ ...styles, color: "#fff" }),
-    singleValue: styles => ({ ...styles, color: "#fff" })
+    input: (styles) => ({ ...styles, color: "#fff" }),
+    singleValue: (styles) => ({ ...styles, color: "#fff" }),
   };
 
   const optionsDis = [
     {
       id: true,
-      title: "Sim"
+      title: "Sim",
     },
     {
       id: false,
-      title: "Não"
-    }
+      title: "Não",
+    },
   ];
 
   return (
@@ -193,9 +187,9 @@ export default function CadProduto({ history, match }) {
               styles={colourStyle}
               placeholder={optionsExistentsCategoria.name}
               name="categoria"
-              getOptionLabel={categoria => categoria.nome}
-              getOptionValue={categoria => categoria._id}
-              onChange={value => handleSelectChange(value._id)}
+              getOptionLabel={(categoria) => categoria.nome}
+              getOptionValue={(categoria) => categoria._id}
+              onChange={(value) => handleSelectChange(value._id)}
             />
 
             <button type="submit">Salvar</button>
@@ -222,7 +216,7 @@ export default function CadProduto({ history, match }) {
           />
         </Pesquisa>
         <List>
-          {produtos.map(produto => {
+          {produtos.map((produto) => {
             return produto.disponivel === true ? (
               <PedidosList key={produto._id}>
                 <header>

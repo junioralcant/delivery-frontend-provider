@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input, Form } from "unform";
+import { Input, Form, Select } from "unform";
 import { IoMdTrash, IoMdCreate } from "react-icons/io";
 import { Link } from "react-router-dom";
 
@@ -76,6 +76,19 @@ export default function CadCategoria({ history, match }) {
     setCategorias(docs);
   }
 
+  const optionsDis = [
+    {
+      id: true,
+      title: "Sim",
+    },
+    {
+      id: false,
+      title: "Não",
+    },
+  ];
+
+  console.log(categorias);
+
   return (
     <Container>
       <Sidebar />
@@ -87,6 +100,13 @@ export default function CadCategoria({ history, match }) {
           <Form className="form" initialData={data} onSubmit={handlerSubmit}>
             {error && <p>{error}</p>}
             <Input name="nome" label="Nome" />
+            <Select
+              className="form-control"
+              value={data.disponivel}
+              name="disponivel"
+              label="Disponível"
+              options={optionsDis}
+            />
 
             <button type="submit">Salvar</button>
             {match.params.id && (
@@ -104,8 +124,8 @@ export default function CadCategoria({ history, match }) {
           </Form>
         </Register>
         <List>
-          {categorias.map(produto => {
-            return (
+          {categorias.map((produto) => {
+            return produto.disponivel === true ? (
               <PedidosList key={produto._id}>
                 <header>
                   <button
@@ -131,6 +151,38 @@ export default function CadCategoria({ history, match }) {
                 <ul>
                   <li>
                     Nome: <small> {produto.nome}</small>
+                  </li>
+                </ul>
+              </PedidosList>
+            ) : (
+              <PedidosList naoDisponivel key={produto._id}>
+                <header>
+                  <button
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          `Deseja realmente deletar a categoria${produto.nome}?`
+                        )
+                      )
+                        destroy(produto._id);
+                    }}
+                  >
+                    <IoMdTrash />
+                  </button>
+                  <Link
+                    to={`/categoria/edit/${produto._id}`}
+                    style={{ color: "#fff" }}
+                  >
+                    <IoMdCreate />
+                  </Link>
+                  <strong> {produto.nome}</strong>
+                </header>
+                <ul>
+                  <li>
+                    Nome: <small> {produto.nome}</small>
+                  </li>
+                  <li>
+                    Disponível: <small> {produto.disponivel}</small>
                   </li>
                 </ul>
               </PedidosList>
